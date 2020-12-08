@@ -27,6 +27,7 @@ class EspSparsnasDevice extends Homey.Device {
 	}
 
 	onMessage(topic, message) {
+		if (topic.startsWith("EspSparsnasGateway/")){
 		this.setCapabilityValue('measure_battery', Math.round(message.battery));
 		this.setCapabilityValue('meter_power', Math.round(message.total));
 		this.setCapabilityValue('measure_power', Math.round(message.watt));
@@ -37,10 +38,10 @@ class EspSparsnasDevice extends Homey.Device {
 			this.setCapabilityValue('measure_power.peak', Math.round(message.watt));
 
 		}
-
+		console.log("Received '" + message + "' on '" + topic + "'");
 		//this.log(topic + ": " + JSON.stringify(message, null, 2));
 	}
-
+}
 	register() {
 		// Subscribe to all messages in the `homey` topic
 		// messages will pass through the onMessage method via the realtime api
